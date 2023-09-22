@@ -1,5 +1,5 @@
 name: carpeta_ciudadana
-description: A new Flutter project.
+description: Carpeta Ciudadana project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -38,7 +38,6 @@ dependencies:
   equatable: ^2.0.5
   go_router: ^10.1.2
   jwt_decoder: ^2.0.1
-  envied: ^0.3.0+3
   file_picker: ^5.5.0
 
 dev_dependencies:
@@ -51,7 +50,6 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-  envied_generator: ^0.3.0+3
   build_runner: ^2.4.6
 
 # For information on the generic Dart part of this file, see the
@@ -66,8 +64,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - .env
+  # assets:
+    # - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

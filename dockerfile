@@ -8,6 +8,7 @@ RUN apt-get install -y curl git unzip
 # define variables
 ARG FLUTTER_SDK=/usr/local/flutter
 ARG APP=/app/
+ARG BASE_URL="https://www.google.com"
 
 # change dir to current flutter folder
 RUN cd $FLUTTER_SDK
@@ -32,8 +33,7 @@ WORKDIR $APP
 # Run build: 1 - clean, 2 - pub get, 3 - build web
 RUN flutter clean
 RUN flutter pub get
-RUN dart pub run build_runner build
-RUN flutter build web
+RUN flutter build web --dart-define=BASE_URL=$BASE_URL
 
 # once heare the app will be compiled and ready to deploy
 

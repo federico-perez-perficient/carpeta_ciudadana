@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:envied/envied.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:carpeta_ciudadana/core/interceptors/interceptor_manager.dart';
@@ -17,7 +16,6 @@ import 'package:carpeta_ciudadana/core/http/custom_http_client.dart';
 import 'package:carpeta_ciudadana/core/http/dio_client_mix.dart';
 import 'package:carpeta_ciudadana/core/http/http_retry.dart';
 import 'package:carpeta_ciudadana/core/http/refresh_token.dart';
-import 'package:carpeta_ciudadana/core/env/env_manager.dart';
 import 'package:carpeta_ciudadana/features/file/data/datasources/file_local_data_source.dart';
 import 'package:carpeta_ciudadana/features/file/data/datasources/file_remote_data_source.dart';
 import 'package:carpeta_ciudadana/features/file/data/repositories/file_repository_impl.dart';
@@ -120,9 +118,5 @@ class InjectionContainerImpl implements InjectionContainer {
           httpRetry: sl(),
           refreshToken: sl(),
         ));
-
-    //Env Manager
-    sl.registerLazySingleton(Envied.new);
-    sl.registerLazySingleton(() => Env);
   }
 }
