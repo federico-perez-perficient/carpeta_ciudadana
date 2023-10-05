@@ -1,4 +1,5 @@
 import 'package:carpeta_ciudadana/features/file/presentation/bloc/file_bloc.dart';
+import 'package:carpeta_ciudadana/features/operator/presentation/bloc/operator_bloc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +30,9 @@ class AppState extends StatelessWidget {
         ),
         BlocProvider<FileBloc>(
           create: (context) => injectionContainerImpl.sl<FileBloc>(),
+        ),
+        BlocProvider<OperatorBloc>(
+          create: (context) => injectionContainerImpl.sl<OperatorBloc>(),
         ),
       ],
       child: const MainApp(),

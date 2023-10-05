@@ -11,7 +11,21 @@ class SignInInitialState extends SignInState {}
 
 class SignInLoadingState extends SignInState {}
 
-class SignedInUserState extends SignInState {}
+class SignOutState extends SignInState {}
+
+class SignedInUserState extends SignInState {
+  final int userId;
+  final String userName;
+  final String userEmail;
+  final String token;
+
+  SignedInUserState({
+    required this.userId,
+    required this.userName,
+    required this.userEmail,
+    required this.token,
+  });
+}
 
 class SignInErrorState extends SignInState {
   final String errorMessage;

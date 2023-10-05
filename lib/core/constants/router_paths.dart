@@ -10,4 +10,8 @@ class RouterPaths {
 
   //Files
   static const file_upload = "/file_upload";
+  static const files = "/files";
+
+  //Operator
+  static const change_operator = "/operator";
 }

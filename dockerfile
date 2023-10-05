@@ -1,46 +1,38 @@
 # Environemnt to install flutter and build web
 FROM debian:latest AS build-env
 
-# install all needed stuff
+# Install flutter dependencies
 RUN apt-get update
-RUN apt-get install -y curl git unzip
+RUN apt-get install -y curl git wget unzip libgconf-2-4 gdb libstdc++6 libglu1-mesa fonts-droid-fallback lib32stdc++6 python3 sed
+RUN apt-get clean
 
-# define variables
-ARG FLUTTER_SDK=/usr/local/flutter
-ARG APP=/app/
-ARG BASE_URL="https://www.google.com"
+#Define variables
+ARG AUTH_URL
+ARG BUCK_URL
 
-# change dir to current flutter folder
-RUN cd $FLUTTER_SDK
+# Clone the flutter repo
+RUN git clone https://github.com/flutter/flutter.git /usr/local/flutter
 
-# download flutter
-RUN git clone https://github.com/flutter/flutter.git --branch 3.13.5
+# Set flutter path
+ENV PATH="${PATH}:/usr/local/flutter/bin:/usr/local/flutter/bin/cache/dart-sdk/bin"
 
-# setup the flutter path as an enviromental variable
-ENV PATH="$FLUTTER_SDK/bin:$FLUTTER_SDK/bin/cache/dart-sdk/bin:${PATH}"
-
-# Start to run Flutter commands
-# doctor to see if all was installes ok
+# Run flutter doctor
 RUN flutter doctor -v
+RUN flutter channel master
+RUN flutter upgrade
 
-# create folder to copy source code
-RUN mkdir $APP
-# copy source code to folder
-COPY . $APP
-# stup new folder as the working directory
-WORKDIR $APP
+# Copy files to container and build
+RUN mkdir /app/
+COPY . /app/
+WORKDIR /app/
 
 # Run build: 1 - clean, 2 - pub get, 3 - build web
 RUN flutter clean
 RUN flutter pub get
-RUN flutter build web --dart-define=BASE_URL=$BASE_URL
+RUN flutter build web --dart-define=BUCK_URL=$BUCK_URL --dart-define=AUTH_URL=$AUTH_URL
 
-# once heare the app will be compiled and ready to deploy
-
-# use nginx to deploy
-FROM nginx:1.25.2-alpine
-
-# copy the info of the builded web app to nginx
+# Stage 2 - Create the run-time image
+FROM nginx:1.21.1-alpine
 COPY --from=build-env /app/build/web /usr/share/nginx/html
 
 # Expose and run nginx

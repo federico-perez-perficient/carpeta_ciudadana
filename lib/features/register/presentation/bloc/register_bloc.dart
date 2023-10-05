@@ -17,7 +17,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       emit(RegisterLoadingState());
       final failureOrSignIn = await registerUser(
         RegisterParams(
-          userId: 1,
+          userId: int.parse(event.personId),
           name: event.name,
           address: event.address,
           email: event.email,

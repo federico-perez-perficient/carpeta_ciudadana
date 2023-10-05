@@ -1,12 +1,25 @@
-import 'package:equatable/equatable.dart';
+class SignInResponse {
+  final bool error;
+  final String message;
+  final Data data;
 
-class SignInResponse extends Equatable {
-  final String signInToken;
-
-  const SignInResponse({
-    required this.signInToken,
+  SignInResponse({
+    required this.error,
+    required this.message,
+    required this.data,
   });
+}
 
-  @override
-  List<Object?> get props => [signInToken];
+class Data {
+  final DateTime expiry;
+  final String idCard;
+  final String name;
+  final String token;
+
+  Data({
+    required this.expiry,
+    required this.idCard,
+    required this.name,
+    required this.token,
+  });
 }

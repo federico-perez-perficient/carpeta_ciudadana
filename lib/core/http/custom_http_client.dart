@@ -5,6 +5,7 @@ import 'package:carpeta_ciudadana/core/http/dio_client_mix.dart';
 abstract class CustomHttpClient {
   Future<Response> get({
     required String path,
+    dynamic body,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? parameters,
   });
@@ -16,6 +17,7 @@ abstract class CustomHttpClient {
   });
   Future<Response> delete({
     required String path,
+    dynamic body,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? parameters,
   });
@@ -40,19 +42,21 @@ class CustomHttpClientImpl implements CustomHttpClient {
   @override
   Future<Response<dynamic>> get({
     required String path,
-    body,
+    dynamic body,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? parameters,
   }) async =>
-      await clientMix.get(path,
-          data: body,
-          options: Options(headers: headers),
-          queryParameters: parameters);
+      await clientMix.get(
+        path,
+        data: body,
+        options: Options(headers: headers),
+        queryParameters: parameters,
+      );
 
   @override
   Future<Response> post({
     required String path,
-    body,
+    dynamic body,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? parameters,
   }) async =>
@@ -66,11 +70,13 @@ class CustomHttpClientImpl implements CustomHttpClient {
   @override
   Future<Response> delete({
     required String path,
+    dynamic body,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? parameters,
   }) async =>
       await clientMix.delete(
         path,
+        data: body,
         options: Options(headers: headers),
         queryParameters: parameters,
       );
@@ -78,7 +84,7 @@ class CustomHttpClientImpl implements CustomHttpClient {
   @override
   Future<Response> put({
     required String path,
-    body,
+    dynamic body,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? parameters,
   }) async =>

@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:carpeta_ciudadana/features/signin/presentation/bloc/sign_in_bloc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,7 +36,39 @@ class _FileUploadScreenState extends State<FileUploadScreen> {
       ),
       body: BlocConsumer<FileBloc, FileState>(
         listener: (context, state) {
-          // TODO: implement listener
+          if (state is FileErrorState) {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    content: Text('Hubo un problema, intenta de nuevo'),
+                    actions: [
+                      FilledButton(
+                        onPressed: () {
+                          context.pop();
+                        },
+                        child: Text('Close'),
+                      )
+                    ],
+                  );
+                });
+          } else if (state is FileUploadedState) {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    content: Text('El archivo fue cargado exitosamente'),
+                    actions: [
+                      FilledButton(
+                        onPressed: () {
+                          context.pop();
+                        },
+                        child: Text('Close'),
+                      )
+                    ],
+                  );
+                });
+          }
         },
         builder: (context, state) {
           return Center(
@@ -60,16 +93,28 @@ class _FileUploadScreenState extends State<FileUploadScreen> {
                   ),
                   const SizedBox(height: 10),
                   (state is FilePickedState)
-                      ? const Text('File selected')
+                      ? Text('File selected: ${state.name}')
                       : const Text('No file selected'),
                   const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: (state is FilePickedState)
-                        ? () async {
-                            // await uploadSelectedFile();
-                          }
-                        : null,
-                    child: const Text('Upload File'),
+                  BlocBuilder<SignInBloc, SignInState>(
+                    builder: (context, signInState) {
+                      return ElevatedButton(
+                        onPressed: (state is FilePickedState)
+                            ? () {
+                                if (signInState is SignedInUserState) {
+                                  context.read<FileBloc>().add(
+                                        FileUploadEvent(
+                                          userId: signInState.userId,
+                                          name: state.name,
+                                          file: state.file,
+                                        ),
+                                      );
+                                }
+                              }
+                            : null,
+                        child: const Text('Upload File'),
+                      );
+                    },
                   ),
                 ],
               ),

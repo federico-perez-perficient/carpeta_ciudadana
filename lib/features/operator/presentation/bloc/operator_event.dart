@@ -6,3 +6,9 @@ abstract class OperatorEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class OperatorTransferEvent extends OperatorEvent {
+  final TransferOperatorParams transferOperatorParams;
+
+  OperatorTransferEvent({required this.transferOperatorParams});
+}

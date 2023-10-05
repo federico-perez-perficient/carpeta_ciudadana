@@ -34,6 +34,7 @@ class RegisterScreen extends StatelessWidget {
           );
         } else if (state is RegisterCompletedState) {
           context.pop();
+          context.go(RouterPaths.login);
         } else if (state is RegisterErrorState) {
           showDialog(
             context: context,

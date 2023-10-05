@@ -17,6 +17,8 @@ class RegisterRemoteDataSourceImpl extends RegisterRemoteDataSource {
   @override
   Future<Response> registerUser(
       {required RegisterParams registerParams}) async {
+    print(API.api_register);
+    print(registerParams);
     final jsonData = await client.post(
       path: API.api_register,
       body: RegisterParamsModel(

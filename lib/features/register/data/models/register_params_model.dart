@@ -19,7 +19,7 @@ class RegisterParamsModel extends RegisterParams {
 
   Map<String, dynamic> toMap() {
     return {
-      "personId": userId,
+      "idcard": userId,
       "name": name,
       "address": address,
       "email": email,

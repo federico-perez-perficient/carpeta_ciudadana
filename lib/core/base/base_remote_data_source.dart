@@ -7,7 +7,7 @@ abstract class BaseRemoteDataSource {
 
 mixin BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
   @override
-  handleError(DioException e) {
+  dynamic handleError(DioException e) {
     final statusCode = e.response!.statusCode ?? 0;
 
     switch (statusCode) {

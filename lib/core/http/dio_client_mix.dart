@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
-import 'package:carpeta_ciudadana/core/constants/api.dart';
 import 'package:carpeta_ciudadana/core/base/base_remote_data_source.dart';
 
 class DioClientMix with DioMixin, BaseRemoteDataSourceImpl implements Dio {
@@ -14,15 +13,14 @@ class DioClientMix with DioMixin, BaseRemoteDataSourceImpl implements Dio {
 
   void _configBaseOptions() {
     final options = BaseOptions(
-      baseUrl: API.base_url,
       connectTimeout: const Duration(seconds: 30),
       receiveTimeout: const Duration(seconds: 30),
       sendTimeout: const Duration(seconds: 30),
       contentType: Headers.jsonContentType,
       responseType: ResponseType.json,
       headers: {
-        HttpHeaders.contentTypeHeader: 'application/json',
-        HttpHeaders.acceptHeader: 'application/json',
+        // HttpHeaders.contentTypeHeader: 'application/json',
+        // HttpHeaders.acceptHeader: 'application/json',
         HttpHeaders.connectionHeader: 'keep-alive',
       },
     );
@@ -49,6 +47,7 @@ class DioClientMix with DioMixin, BaseRemoteDataSourceImpl implements Dio {
     try {
       return await client.get(
         _setUrlLang(path),
+        data: data,
         options: options,
         queryParameters: queryParameters,
       );
@@ -92,6 +91,7 @@ class DioClientMix with DioMixin, BaseRemoteDataSourceImpl implements Dio {
     try {
       return await client.delete(
         _setUrlLang(path),
+        data: data,
         options: options,
         queryParameters: queryParameters,
       );

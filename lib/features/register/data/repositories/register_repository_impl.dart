@@ -25,6 +25,8 @@ class RegisterRepositoryImplementation extends RegisterRepository {
       return Right(registerResponse);
     } on ServerException catch (e) {
       return Left(ServerFailure(e.message));
+    } catch (e) {
+      return Left(ServerFailure('Error'));
     }
   }
 }

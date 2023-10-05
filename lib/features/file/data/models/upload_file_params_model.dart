@@ -5,18 +5,16 @@ import 'package:carpeta_ciudadana/features/file/domain/entities/upload_file_para
 
 class UploadFileParamsModel extends UploadFileParams {
   const UploadFileParamsModel({
+    required int userId,
+    required String name,
     required Uint8List filePickerResult,
-  }) : super(filePickerResult: filePickerResult);
-
-  factory UploadFileParamsModel.fromJson(String str) =>
-      UploadFileParamsModel.fromMap(json.decode(str));
+  }) : super(
+          userId: userId,
+          name: name,
+          filePickerResult: filePickerResult,
+        );
 
   String toJson() => json.encode(toMap());
-
-  factory UploadFileParamsModel.fromMap(Map<String, dynamic> json) =>
-      UploadFileParamsModel(
-        filePickerResult: json["file"],
-      );
 
   Map<String, dynamic> toMap() => {
         "file": filePickerResult,
