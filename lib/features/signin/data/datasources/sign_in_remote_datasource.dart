@@ -1,7 +1,3 @@
-import 'package:carpeta_ciudadana/core/exceptions/exceptions.dart';
-import 'package:carpeta_ciudadana/features/signin/domain/entities/sign_in_response.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:carpeta_ciudadana/core/constants/api.dart';
 import 'package:carpeta_ciudadana/core/http/custom_http_client.dart';
 import 'package:carpeta_ciudadana/features/signin/data/models/sign_in_params_model.dart';
