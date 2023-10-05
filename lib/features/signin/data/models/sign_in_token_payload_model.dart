@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:jwt_decoder/jwt_decoder.dart';
-
 import 'package:carpeta_ciudadana/features/signin/domain/entities/sign_in_token_payload.dart';
 
 class SignInTokenPayloadModel extends SignInTokenPayload {
@@ -35,18 +33,6 @@ class SignInTokenPayloadModel extends SignInTokenPayload {
         userGuid: json["userGuid"],
         exp: json["exp"],
       );
-
-  factory SignInTokenPayloadModel.fromToken(String token) {
-    var decodedToken = JwtDecoder.decode(token);
-    return SignInTokenPayloadModel(
-      name: decodedToken["name"],
-      lastName: decodedToken["lastName"],
-      email: decodedToken["email"],
-      photo: decodedToken["photo"] ?? '',
-      userGuid: decodedToken["userGuid"],
-      exp: decodedToken["exp"],
-    );
-  }
 
   Map<String, dynamic> toMap() => {
         "name": name,
